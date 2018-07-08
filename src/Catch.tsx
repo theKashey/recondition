@@ -41,8 +41,8 @@ export class Catcher extends React.Component<ICatchProps, ICatchState> {
     resolved: [] as any,
     rejected: [] as any,
 
-    throw: undefined,
-    catched: undefined,
+    throw: undefined as any,
+    catched: undefined as any,
   };
 
   componentDidUpdate(_: any, oldState: ICatchState) {

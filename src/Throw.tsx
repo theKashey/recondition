@@ -14,7 +14,7 @@ interface IThrowState {
 
 export class Throw extends React.Component<IThrowProps, IThrowState> {
   state = {
-    throwed: undefined
+    throwed: undefined as any
   };
 
   componentDidMount() {
