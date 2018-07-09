@@ -84,6 +84,10 @@ const Mask = createMaskedProvider({ flag1: true, flag2: false });
       display the default, when nothing got renderer
    </Mask.Default>   
  </Mask.Switch>   
+ 
+ <Mask.Return flag1>
+    { (match) => ( <div>this condition is { match ? true : false }</div>)}
+ </Mask.Return>
 </div>
 ```
 
