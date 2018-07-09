@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Component} from 'react';
 import {AppWrapper} from './styled';
-import {Catcher, Trigger, createMask, Throw} from '../src';
+import {Catcher, Trigger, createMask, Throw, Read} from '../src';
 
 
 export interface AppState {
@@ -75,6 +75,11 @@ export default class App extends Component <{}, AppState> {
                   <Trigger when={this.state.XX === 5} then={() => this.setState({XX: 0})}/>
                   <button onClick={() => this.setState({XX:this.state.XX+1})}>XX++</button>
                   <button onClick={() => this.setState({YY:this.state.YY+1})}>YY++</button>
+
+                  <Read YY={1} bits={this.state}>
+                    { (match, flags) => (<div>{match?'MATCH!':'no match'} {JSON.stringify(flags)}</div>)}
+                  </Read>
+
                   <Mask.Provider bits={this.state}>
                     <Mask.Switch>
                       <Mask.Case YY={1}> v is 1</Mask.Case>

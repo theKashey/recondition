@@ -12,6 +12,14 @@ export type IMaskChildren<T> = {
   bits?: Partial<T>;
 };
 
+export type IReadChildren<T> = {
+  children: (match: boolean, flags: T) => React.ReactNode;
+};
+
+export type IChildren<T> = {
+  bits?: Partial<T>;
+};
+
 type ContextType<Bits extends object> = {
   bits: Partial<Bits>,
   rules: Partial<IRulesProps<Bits>>
@@ -19,7 +27,7 @@ type ContextType<Bits extends object> = {
 
 const defaultComparator = (a: any, b: any) => a === b;
 
-const match = (bits: ContextType<any>, mask: { [k:string]: any}): boolean => (
+const match = (bits: ContextType<any>, mask: { [k: string]: any }): boolean => (
   Object
     .keys(mask)
     .every(key => (bits.rules[key] || defaultComparator)(mask[key], bits.bits[key], key))
@@ -86,6 +94,19 @@ function createMaskedProvider<Bits extends object>(initial: Bits, rules: Partial
     )
   };
 
+  const Read: React.SFC<IMaskProps<Bits> & IMaskChildren<Bits> & IReadChildren<Bits>> = (props) => {
+    const {bits, children} = props;
+    const mask = getProps(props);
+    if (bits) {
+      return children(match({bits, rules: {}}, mask), bits as Bits) as any;
+    }
+    return (
+      <Consumer>{
+        value => children(match(value, mask), value.bits as Bits)
+      }</Consumer>
+    )
+  }
+
   const Default: React.SFC = ({children}) => (children as any);
 
   const CaseType = (<Case/>).type;
@@ -114,6 +135,7 @@ function createMaskedProvider<Bits extends object>(initial: Bits, rules: Partial
     Provider,
     Switch,
     Case,
+    Read,
     Default
   }
 }

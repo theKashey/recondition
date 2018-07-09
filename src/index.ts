@@ -6,7 +6,7 @@ import {Throw} from './Throw';
 import {Trigger} from './Trigger';
 
 const def: {[key:string]:any} = {};
-const {Provider: MaskProvider, Switch, Case, Default: CaseDefault } = createMask(def);
+const {Provider: MaskProvider, Switch, Case, Default: CaseDefault, Read } = createMask(def);
 
 export {
   Catcher,
@@ -17,6 +17,7 @@ export {
   MaskProvider,
   Switch,
   Case,
+  Read,
   CaseDefault,
 
   createMask
