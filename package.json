@@ -1,6 +1,6 @@
 {
   "name": "recondition",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Render Prop Condition",
   "main": "dist/index.js",
   "scripts": {
@@ -26,7 +26,8 @@
     "proptypes": "^1.1.0"
   },
   "devDependencies": {
-    "ts-react-toolbox": "^0.1.10"
+    "codecov": "^3.0.3",
+    "enzyme-adapter-react-16": "npm:enzyme-react-adapter-future"
   },
   "engines": {
     "node": ">=8.5.0"
@@ -37,9 +38,5 @@
   "types": "dist/index.d.ts",
   "files": [
     "dist"
-  ],
-  "devDependencies": {
-    "codecov": "^3.0.3",
-    "enzyme-adapter-react-16": "npm:enzyme-react-adapter-future"
-  }
+  ]
 }
