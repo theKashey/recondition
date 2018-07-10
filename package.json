@@ -1,7 +1,7 @@
 {
   "name": "recondition",
   "version": "0.2.0",
-  "description": "",
+  "description": "Render Prop Condition",
   "main": "dist/index.js",
   "scripts": {
     "test": "ts-react-toolbox test",
