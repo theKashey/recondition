@@ -23,7 +23,9 @@
     "url": "https://github.com/theKashey/recondition/issues"
   },
   "dependencies": {
-    "proptypes": "^1.1.0",
+    "proptypes": "^1.1.0"
+  },
+  "devDependencies": {
     "ts-react-toolbox": "^0.1.10"
   },
   "engines": {
