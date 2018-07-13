@@ -1,6 +1,6 @@
 {
   "name": "recondition",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Render Prop Condition",
   "main": "dist/index.js",
   "scripts": {
