@@ -2,6 +2,7 @@ import * as React from 'react';
 import {Component} from 'react';
 import {AppWrapper} from './styled';
 import {Catcher, Trigger, createMask, Throw, Read} from '../src';
+import {LatestSource} from "../src/LatestSource";
 
 
 export interface AppState {
@@ -11,9 +12,9 @@ export interface AppState {
   c2: number;
 }
 
-const Mask = createMask({XX: 1, YY :1 });
+const Mask = createMask({XX: 1, YY: 1});
 
-const delay = (n:number) => new Promise((resolve) => setTimeout(resolve, n, 'delay'));
+const delay = (n: number) => new Promise((resolve) => setTimeout(resolve, n, 'delay'));
 
 export default class App extends Component <{}, AppState> {
   state: AppState = {
@@ -37,7 +38,8 @@ export default class App extends Component <{}, AppState> {
               {(catcher) => (
                 <React.Fragment>
                   <p>
-                  c: pending:{catcher.pending && "pending"}, {catcher.resolved && "ok"}/{catcher.caught} {JSON.stringify(catcher)}
+                    c:
+                    pending:{catcher.pending && "pending"}, {catcher.resolved && "ok"}/{catcher.caught} {JSON.stringify(catcher)}
                   </p>
 
                   <Throw when={this.state.XX == 4} what="c2"/>
@@ -73,12 +75,26 @@ export default class App extends Component <{}, AppState> {
                   </Throw>
 
                   <Trigger when={this.state.XX === 5} then={() => this.setState({XX: 0})}/>
-                  <button onClick={() => this.setState({XX:this.state.XX+1})}>XX++</button>
-                  <button onClick={() => this.setState({YY:this.state.YY+1})}>YY++</button>
+                  <button onClick={() => this.setState({XX: this.state.XX + 1})}>XX++</button>
+                  <button onClick={() => this.setState({YY: this.state.YY + 1})}>YY++</button>
 
                   <Read YY={1} bits={this.state}>
-                    { (match, flags) => (<div>{match?'MATCH!':'no match'} {JSON.stringify(flags)}</div>)}
+                    {(match, flags) => (<div>{match ? 'MATCH!' : 'no match'} {JSON.stringify(flags)}</div>)}
                   </Read>
+
+                  <div>
+                    # Merge
+                    <LatestSource
+                      input={{
+                      XX:{y:this.state.XX},
+                      YY:{y:this.state.YY}
+                    }}
+                      shallowEqual
+                      filter={x => !!(x.y %2)}
+                    >
+                      {(value, ghost, key) => <div>{value.y}/{ghost.y}({key})</div>}
+                    </LatestSource>
+                  </div>
 
                   <Mask.Provider bits={this.state}>
                     <Mask.Switch>
