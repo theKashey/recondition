@@ -20,10 +20,29 @@ export type IChildren<T> = {
   bits?: Partial<T>;
 };
 
-type ContextType<Bits extends object> = {
+export type ContextType<Bits extends object> = {
   bits: Partial<Bits>,
   rules: Partial<IRulesProps<Bits>>
 };
+
+export type ProviderType<Bits extends object> = {
+  bits: Partial<Bits>,
+  rules?: Partial<IRulesProps<Bits>>
+};
+
+export type CaseProps<Bits extends object> = IMaskProps<Bits> & IMaskChildren<Bits>
+
+export type ReadProps<Bits extends object> = IMaskProps<Bits> & IMaskChildren<Bits> & IReadChildren<Bits>;
+
+export type SwitchProps<Bits extends object> = { bits?: Partial<Bits> };
+
+export type MaskPack<Bits extends object> = {
+  Provider: React.SFC<ProviderType<Bits>>,
+  Switch: React.SFC<SwitchProps<Bits>>,
+  Case: React.SFC<CaseProps<Bits>>,
+  Read: React.SFC<ReadProps<Bits>>,
+  Default: React.SFC<any>,
+}
 
 const defaultComparator = (a: any, b: any) => a === b;
 
@@ -44,18 +63,8 @@ const merge = (a: any, key: string, c: any) => ({
 
 const getProps = ({bits, children, ...mask}: { [key: string]: any }) => mask;
 
-function createMaskedProvider<Bits extends object>(initial: Bits, rules: Partial<IRulesProps<Bits>> = {}) {
-  type ContextType = {
-    bits: Partial<Bits>,
-    rules: Partial<IRulesProps<Bits>>
-  };
-
-  type ProviderType = {
-    bits: Partial<Bits>,
-    rules?: Partial<IRulesProps<Bits>>
-  };
-
-  const context = React.createContext<ContextType>({
+function createMaskedProvider<Bits extends object>(initial: Bits, rules: Partial<IRulesProps<Bits>> = {}):MaskPack<Bits> {
+  const context = React.createContext<ContextType<Bits>>({
     bits: initial,
     rules: rules
   });
@@ -67,7 +76,7 @@ function createMaskedProvider<Bits extends object>(initial: Bits, rules: Partial
     rules: {}
   };
 
-  const Provider: React.SFC<ProviderType> = ({bits, rules = {}, children}) => (
+  const Provider: React.SFC<ProviderType<Bits>> = ({bits, rules = {}, children}) => (
     <Consumer>
       {
         (value = empty) =>
@@ -81,7 +90,7 @@ function createMaskedProvider<Bits extends object>(initial: Bits, rules: Partial
     </Consumer>
   );
 
-  const Case: React.SFC<IMaskProps<Bits> & IMaskChildren<Bits>> = (props) => {
+  const Case: React.SFC<CaseProps<Bits>> = (props) => {
     const {bits, children} = props;
     const mask = getProps(props);
     if (bits) {
@@ -94,7 +103,7 @@ function createMaskedProvider<Bits extends object>(initial: Bits, rules: Partial
     )
   };
 
-  const Read: React.SFC<IMaskProps<Bits> & IMaskChildren<Bits> & IReadChildren<Bits>> = (props) => {
+  const Read: React.SFC<ReadProps<Bits>> = (props) => {
     const {bits, children} = props;
     const mask = getProps(props);
     if (bits) {
@@ -118,10 +127,7 @@ function createMaskedProvider<Bits extends object>(initial: Bits, rules: Partial
     null
   );
 
-  const Switch: React.SFC<{
-    bits?: Partial<Bits>,
-    // children: { type:typeof Case | typeof Default | string}[]
-  }> = ({children, bits}) => (
+  const Switch: React.SFC<SwitchProps<Bits>> = ({children, bits}) => (
     bits
       ? pickCase({values: bits}, React.Children.toArray(children)) as any
       : (

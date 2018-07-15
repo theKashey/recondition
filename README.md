@@ -129,6 +129,7 @@ import {LatestSource} from 'recondition';
 </LatestSource> 
 ```
 
++ there is `GhostValue` component, which does the same for a single value.
 
 4. Catcher - Error Boundary based promise collector (~Suspense, experimental)
 `Thrower` - Error trigger. Also could provides throw-as-children prop, to give you API to throw react-catchable messages.

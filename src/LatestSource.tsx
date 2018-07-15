@@ -77,3 +77,17 @@ export class LatestSource<T> extends React.Component<IMergeRender<T>, IMergeStat
     return this.props.children(value, values[activeKey], activeKey)
   }
 }
+
+export type IGhostRender<T> = {
+  input: T;
+  shallowEqual?: boolean;
+  filter?: (value: T) => boolean,
+  children: (value: T, real: T) => React.ReactNode;
+}
+
+export class GhostValue<T> extends React.Component<IGhostRender<T>> {
+  render() {
+    const {input, ...props} = this.props;
+    return <LatestSource input={{0: input}} {...props}/>
+  }
+}

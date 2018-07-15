@@ -1,10 +1,11 @@
 // @ts-ignore
 import * as React from 'react';
-import createMask from "./Mask";
+// @ts-ignore
+import createMask, { MaskPack, ProviderType, SwitchProps, CaseProps, ReadProps } from "./Mask";
 import {Catcher} from './Catch';
 import {Throw} from './Throw';
 import {Trigger} from './Trigger';
-import {LatestSource} from "./LatestSource";
+import {GhostValue, LatestSource} from "./LatestSource";
 
 const def: {[key:string]:any} = {};
 const {Provider: MaskProvider, Switch, Case, Default: CaseDefault, Read } = createMask(def);
@@ -23,5 +24,6 @@ export {
 
   createMask,
 
-  LatestSource
+  LatestSource,
+  GhostValue
 }
