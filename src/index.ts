@@ -6,6 +6,7 @@ import {Catcher} from './Catch';
 import {Throw} from './Throw';
 import {Trigger} from './Trigger';
 import {GhostValue, LatestSource} from "./LatestSource";
+import {Revalue} from "./Revalue";
 
 const def: {[key:string]:any} = {};
 const {Provider: MaskProvider, Switch, Case, Default: CaseDefault, Read } = createMask(def);
@@ -25,5 +26,7 @@ export {
   createMask,
 
   LatestSource,
-  GhostValue
+  GhostValue,
+
+  Revalue
 }
