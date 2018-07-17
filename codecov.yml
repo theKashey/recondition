@@ -1,0 +1,3 @@
+ignore:
+  - "src/Catch.tsx"
+  - "src/Throw.tsx"

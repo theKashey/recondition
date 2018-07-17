@@ -7,6 +7,10 @@
   <a href="https://www.npmjs.com/package/recondition">
    <img src="https://img.shields.io/npm/v/recondition.svg?style=flat-square" />
   </a>
+  
+  <a href="https://codecov.io/github/thekashey/recondition">
+     <img src="https://img.shields.io/codecov/c/github/thekashey/recondition.svg?style=flat-square" />
+    </a>
 
   <br/>  
 </div>  
