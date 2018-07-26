@@ -28,7 +28,8 @@
   },
   "devDependencies": {
     "codecov": "^3.0.3",
-    "enzyme-adapter-react-16": "npm:enzyme-react-adapter-future"
+    "enzyme-adapter-react-16": "npm:enzyme-react-adapter-future",
+    "ts-react-toolbox": "^0.1.15"
   },
   "engines": {
     "node": ">=8.5.0"
