@@ -9,14 +9,19 @@
   </a>
   
   <a href="https://codecov.io/github/thekashey/recondition">
-     <img src="https://img.shields.io/codecov/c/github/thekashey/recondition.svg?style=flat-square" />
-    </a>
+   <img src="https://img.shields.io/codecov/c/github/thekashey/recondition.svg?style=flat-square)" />
+  </a>
+  
+  <a href="https://travis-ci.org/theKashey/recondition">
+   <img src="https://travis-ci.org/theKashey/recondition.svg?branch=master" />
+  </a>
 
   <br/>  
 </div>  
 
 # API
-1. `Trigger` - dispatch an action when some condition is true
+## Trigger
+Trigger - dispatch an action when some condition is true. Trigger just executes actions in the right time, in the right React Life Cycles.
 ```js
 import {Trigger} from 'recondition';
 
@@ -32,18 +37,20 @@ import {Trigger} from 'recondition';
 ```
 - `when` - boolean prop, activates Trigger
 - `then` - callback
-- `finally` - event on unmount, optional.
-- `async` - defer execution my one "tick", always fires, even if Trigger got unmounted, optional, overrides delay
-- `delay` - execution delay, if Trigger got unmounted before timeout - it will not fire, optional 
+- `finally` - event on unmount, _optional_.
+- `async` - defer execution by one "tick", always fires, even if Trigger got unmounted, _optional, overrides delay_
+- `delay` - execution delay, if Trigger got unmounted before timeout - it will not fire, _optiona_ 
 
-2. `Mask` - mask based selector. Masks(FeatureFlags) in declaration form, like react-router
+## Mask
+Mask - mask based selector. Masks in declaration form, like react-router. FeatureFlags, Media selectors, A/B tests - any condition based logic.
 ```js
 import {createMaskedProvider} from 'recondition';
 
+// define the shape of mask
 const Mask = createMaskedProvider({ flag1: true, flag2: false });
 
 <div>
- <Mask.Case flag1>
+ <Mask.Case flag1> // only of flag1 is defined
    will render, as long flag1 is true
  </Mask.Case>
  
@@ -52,9 +59,10 @@ const Mask = createMaskedProvider({ flag1: true, flag2: false });
  </Mask.Case>
   
  <Mask.Case flag1 flag2={false}>
-   will  render, as long flag1 is true, but flag is false, but we are looking for false
+   will  render, as long flag1 is true, but flag is false, but(!) we are looking for false
  </Mask.Case>
  
+ // more complex example?
  <Mask.Switch>
    <Mask.Case flag1 flag2>
       display when flags are met
@@ -81,7 +89,7 @@ const Mask = createMaskedProvider(
 <Mask.Case flag="html" />
 ```
 
-You also might create your own react-router
+You also might create your own react-router. Switch is a Switch and Case is a Route.
 
 ```js
 import {createMaskedProvider} from 'recondition';
@@ -105,8 +113,8 @@ const Mask = createMaskedProvider(
  </Mask.Switch>   
 </div>
 ```
-
-3. `LatestSource` - data source "ziper". Gets multiple source as input, and provide
+## LatestSource
+LatestSource - data source "ziper". Gets multiple source as input, and provide
 last changed source as output. Additional feature - it would keep the last value
 passed thought `filter`(optional), making multi-source data picking easier.
 
@@ -135,7 +143,10 @@ import {LatestSource} from 'recondition';
 
 + there is `GhostValue` component, which does the same for a single value.
 
-4. `Phased` - the Schrodinger's state - once value changed - it will be actually changed
+Both components are more about _preserving_ some value, you have to preserve. Tooltips are quite good example.
+
+## Phased
+Phased - the Schrodinger's state - once value changed - it will be actually changed
 after few _phases_.
 Useful when you have react flip some value, and have to react on that change.
 ```js
@@ -149,8 +160,9 @@ import {Phased} from 'recondition';
 ``` 
 Default value for a `phases` prop - 0, that means 1 step for "enter", and 1 step for "exit".
 
-5. `Catcher` - Error Boundary based promise collector (~Suspense, experimental)
-`Thrower` - Error trigger. Also could provides throw-as-children prop, to give you API to throw react-catchable messages.
+## Catcher
+- `Catcher` - Error Boundary based promise collector (~Suspense, experimental)
+- `Thrower` - Error trigger. Also could provides throw-as-children prop, to give you API to throw react-catchable messages.
 ```js
 import {Catcher, Throw} from 'recondition';
 
@@ -179,6 +191,8 @@ import {Catcher, Throw} from 'recondition';
 </div>   
 ```
 `catch`(event filter) - is optional 
+
+# Written in TypeScript
 
 # Licence
  MIT
