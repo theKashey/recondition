@@ -168,8 +168,8 @@ import {Catcher, Throw} from 'recondition';
 
 <div>
  <Catcher 
-    onCatch{ (e:Promise<any>) => doSomething(e)}
- }>
+    onCatch = { (e:Promise<any>) => doSomething(e)}
+ >
    {({
        caught, // number of Promised caught
        pending, // is anything pending
