@@ -16,7 +16,7 @@
 </div>  
 
 # API
-1. Trigger - dispatch an action when some condition is true
+1. `Trigger` - dispatch an action when some condition is true
 ```js
 import {Trigger} from 'recondition';
 
@@ -36,7 +36,7 @@ import {Trigger} from 'recondition';
 - `async` - defer execution my one "tick", always fires, even if Trigger got unmounted, optional, overrides delay
 - `delay` - execution delay, if Trigger got unmounted before timeout - it will not fire, optional 
 
-2. Mask - mask based selector. Masks(FeatureFlags) in declaration form, like react-router
+2. `Mask` - mask based selector. Masks(FeatureFlags) in declaration form, like react-router
 ```js
 import {createMaskedProvider} from 'recondition';
 
@@ -106,7 +106,7 @@ const Mask = createMaskedProvider(
 </div>
 ```
 
-3. LatestSource - data source "ziper". Gets multiple source as input, and provide
+3. `LatestSource` - data source "ziper". Gets multiple source as input, and provide
 last changed source as output. Additional feature - it would keep the last value
 passed thought `filter`(optional), making multi-source data picking easier.
 
@@ -135,7 +135,21 @@ import {LatestSource} from 'recondition';
 
 + there is `GhostValue` component, which does the same for a single value.
 
-4. Catcher - Error Boundary based promise collector (~Suspense, experimental)
+4. `Phased` - the Schrodinger's state - once value changed - it will be actually changed
+after few _phases_.
+Useful when you have react flip some value, and have to react on that change.
+```js
+import {Phased} from 'recondition';
+
+<Phased value={value} phases={1}>
+  {({value, nextValue, phase}) => {
+    value && <SomeComponent animated={phase && nextValue}/>
+  }} 
+</Phased>
+``` 
+Default value for a `phases` prop - 0, that means 1 step for "enter", and 1 step for "exit".
+
+5. `Catcher` - Error Boundary based promise collector (~Suspense, experimental)
 `Thrower` - Error trigger. Also could provides throw-as-children prop, to give you API to throw react-catchable messages.
 ```js
 import {Catcher, Throw} from 'recondition';

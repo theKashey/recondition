@@ -7,6 +7,7 @@ import {Throw} from './Throw';
 import {Trigger} from './Trigger';
 import {GhostValue, LatestSource} from "./LatestSource";
 import {Revalue} from "./Revalue";
+import {Phased} from './Phased';
 
 const def: {[key:string]:any} = {};
 const {Provider: MaskProvider, Switch, Case, Default: CaseDefault, Read } = createMask(def);
@@ -28,5 +29,6 @@ export {
   LatestSource,
   GhostValue,
 
-  Revalue
+  Revalue,
+  Phased
 }

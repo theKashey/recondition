@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Component} from 'react';
 import {AppWrapper} from './styled';
-import {Catcher, Trigger, createMask, Throw, Read} from '../src';
+import {Catcher, Trigger, createMask, Throw, Read, Phased} from '../src';
 import {LatestSource} from "../src/LatestSource";
 
 
@@ -16,6 +16,36 @@ const Mask = createMask({XX: 1, YY: 1});
 
 const delay = (n: number) => new Promise((resolve) => setTimeout(resolve, n, 'delay'));
 
+
+class PhaseTest extends React.Component {
+  state = {
+    v: false
+  };
+
+  ref: HTMLDivElement = null as any;
+
+  setRef = (ref: any) => this.ref = ref;
+
+  render() {
+    return (
+      <div>
+        <button onClick={() => this.setState({v: true})}>T</button>
+        <button onClick={() => this.setState({v: false})}>F</button>
+
+        <Phased value={this.state.v} onShift={(v) => console.log('>>', v, this.ref.getBoundingClientRect())}>
+          {(v) => <div>
+            {JSON.stringify(v)}
+            <div ref={this.setRef} style={{position: 'relative', ...(v.value ? {left: 10} : {left: 20})}}>
+            </div>
+          </div>}
+        </Phased>
+
+
+      </div>
+    )
+  }
+}
+
 export default class App extends Component <{}, AppState> {
   state: AppState = {
     XX: 1,
@@ -27,6 +57,7 @@ export default class App extends Component <{}, AppState> {
   render() {
     return (
       <AppWrapper>
+        <PhaseTest/>
         <div>-XX{this.state.XX}-YY{this.state.YY}-c1|{this.state.c1}-c2|{this.state.c2}</div>
 
         <Catcher
@@ -86,11 +117,11 @@ export default class App extends Component <{}, AppState> {
                     # Merge
                     <LatestSource
                       input={{
-                      XX:{y:this.state.XX},
-                      YY:{y:this.state.YY}
-                    }}
+                        XX: {y: this.state.XX},
+                        YY: {y: this.state.YY}
+                      }}
                       shallowEqual
-                      filter={x => !!(x.y %2)}
+                      filter={x => !!(x.y % 2)}
                     >
                       {(value, ghost, key) => <div>{value.y}/{ghost.y}({key})</div>}
                     </LatestSource>
@@ -111,7 +142,6 @@ export default class App extends Component <{}, AppState> {
             </Catcher>
           )}
         </Catcher>
-
       </AppWrapper>
     )
   }
