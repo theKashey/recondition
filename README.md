@@ -149,15 +149,33 @@ Both components are more about _preserving_ some value, you have to preserve. To
 Phased - the Schrodinger's state - once value changed - it will be actually changed
 after few _phases_.
 Useful when you have react flip some value, and have to react on that change.
+
+Phased could be useful for animation to simulate transition, or
+any boolean _flip_ which is not _instant_.
+
+Accepts `value` and 2 optional props - `phases` and `timeouts`.
 ```js
 import {Phased} from 'recondition';
 
+// semi-instant flip, but "long" enough to setup className-based animation.
 <Phased value={value} phases={1}>
-  {({value, nextValue, phase}) => {
+  {({value, nextValue, phase, phasing}) => {
     value && <SomeComponent animated={phase && nextValue}/>
   }} 
 </Phased>
+// value - current value
+// nextValue - target value
+// phase the current "phase"
+// phasing - is currently phasing. Have false values in the beginning and the end.
+
+// one second between flips
+<Phased value={value} phases={0} timeouts={[1000]}>
+  {({value, nextValue, phasing}) => {
+    (value || nextValue) && <SomeComponent animated={phasing}/>
+  }} 
+</Phased>
 ``` 
+
 Default value for a `phases` prop - 0, that means 1 step for "enter", and 1 step for "exit".
 
 ## Catcher
