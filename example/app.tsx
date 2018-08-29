@@ -32,7 +32,7 @@ class PhaseTest extends React.Component {
         <button onClick={() => this.setState({v: true})}>T</button>
         <button onClick={() => this.setState({v: false})}>F</button>
 
-        <Phased value={this.state.v} phases={1} timeouts={[1000,1000]} onShift={(v) => console.log('>>', v, this.ref.getBoundingClientRect())}>
+        <Phased value={this.state.v} phases={0} timeouts={[1000]} onShift={(v) => console.log('>>', v, this.ref.getBoundingClientRect())}>
           {(v) => <div>
             {JSON.stringify(v)}
             <div ref={this.setRef} style={{position: 'relative', ...(v.value ? {left: 10} : {left: 20})}}>

@@ -2,6 +2,7 @@ import * as React from 'react';
 
 
 interface PhaseState<T> {
+  lastValue: T;
   value: T;
   nextValue: T;
   phase: number;
@@ -18,6 +19,7 @@ interface PhaseProps<T> {
 
 export class Phased<T> extends React.Component<PhaseProps<T>, PhaseState<T>> {
   state = {
+    lastValue: this.props.value,
     value: this.props.value,
     nextValue: this.props.value,
     phase: 0,
@@ -31,6 +33,7 @@ export class Phased<T> extends React.Component<PhaseProps<T>, PhaseState<T>> {
     if (prevProps.value !== value) {
       this.shift();
       this.setState({
+        lastValue: prevProps.value,
         nextValue: this.props.value,
         phase: 0,
         phasing: true
