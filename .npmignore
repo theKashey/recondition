@@ -6,6 +6,7 @@ stories/
 _tests/
 src/
 assets/
+example
 
 .DS_Store
 .size-limit
