@@ -1,6 +1,6 @@
 {
   "name": "recondition",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Render Prop Condition",
   "scripts": {
     "test": "ts-react-toolbox test",
@@ -15,15 +15,12 @@
     "format": "ts-react-toolbox format",
     "analyze": "ts-react-toolbox analyze"
   },
-  "repository": "",
-  "keywords": [],
+  "repository": "git://github.com/theKashey/recondition.git",
+  "keywords": ["react","conditional render"],
   "author": "theKashey <thekashey@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/theKashey/recondition/issues"
-  },
-  "dependencies": {
-    "proptypes": "^1.1.0"
   },
   "devDependencies": {
     "codecov": "^3.0.3",
