@@ -7,6 +7,7 @@
     "bootstrap": "ts-react-toolbox init",
     "dev": "ts-react-toolbox dev",
     "test:ci": "ts-react-toolbox test --runInBand --coverage",
+    "test:size": "size-limit",
     "build": "ts-react-toolbox build",
     "prepublish": "yarn build",
     "release": "ts-react-toolbox release",

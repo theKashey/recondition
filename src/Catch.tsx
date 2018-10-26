@@ -57,6 +57,10 @@ export class Catcher extends React.Component<ICatchProps, ICatchState> {
     }
   }
 
+  static getDerivedStateFromError() {
+    return null;
+  }
+
   componentDidCatch(error: Error | Promise<any>) {
     if ('then' in error) {
       this.setState({

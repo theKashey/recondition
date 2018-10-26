@@ -1,19 +1,9 @@
 node_modules/
-npm-debug.log
 yarn.lock
-circle.yml
-stories/
-_tests/
 src/
-assets/
-example
-
-.DS_Store
 .size-limit
-.babelrc
-.eslintrc
 .npmignore
 .gitignore
-.storybook/
+__tests__
 
 

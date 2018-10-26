@@ -18,7 +18,7 @@ export class Throw extends React.Component<IThrowProps, IThrowState> {
   };
 
   componentDidMount() {
-    this.componentDidUpdate(this.props, this.state);
+    this.componentDidUpdate({} as any, {} as any);
   }
 
   componentDidUpdate(oldProps: IThrowProps, oldState: IThrowState) {
@@ -31,7 +31,7 @@ export class Throw extends React.Component<IThrowProps, IThrowState> {
   }
 
   shouldComponentUpdate(props: IThrowProps, oldState: IThrowState) {
-    return this.props.when !== props.when || this.state.throwed !== oldState.throwed;
+    return !('when' in this.props) || this.props.when !== props.when || this.state.throwed !== oldState.throwed;
   }
 
   thrower: ErrorThrower = (event: any) => {
@@ -42,6 +42,6 @@ export class Throw extends React.Component<IThrowProps, IThrowState> {
     if (!this.props.children) {
       return null;
     }
-    return this.props.children!(this.thrower)
+    return this.props.children!(this.thrower) || null;
   }
 }
