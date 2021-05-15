@@ -50,16 +50,16 @@ import {createMaskedProvider} from 'recondition';
 const Mask = createMaskedProvider({ flag1: true, flag2: false });
 
 <div>
- <Mask.Case flag1> // only of flag1 is defined
+ <Mask.Case flag1> // only if flag1 is defined
    will render, as long flag1 is true
  </Mask.Case>
  
  <Mask.Case flag1 flag2>
-   will NOT render, as long flag1 is true, but flag is false
+   will NOT render, as long flag1 is true and flag2 is still false
  </Mask.Case>
   
  <Mask.Case flag1 flag2={false}>
-   will  render, as long flag1 is true, but flag is false, but(!) we are looking for false
+   will render because flag1 is true and flag2 is false, but(!) we are looking for false
  </Mask.Case>
  
  // more complex example?
@@ -68,7 +68,7 @@ const Mask = createMaskedProvider({ flag1: true, flag2: false });
       display when flags are met
    </Mask.Case>
    <Mask.Default>
-      display the default, when nothing got renderer
+      display the default, when nothing got rendered
    </Mask.Default>   
  </Mask.Switch>   
  
@@ -143,7 +143,7 @@ import {LatestSource} from 'recondition';
 
 + there is `GhostValue` component, which does the same for a single value.
 
-Both components are more about _preserving_ some value, you have to preserve. Tooltips are quite good example.
+Both components are more about _preserving_ some value you have to preserve. Tooltips are a good example.
 
 ## Phased
 Phased - the Schrodinger's state - once value changed - it will be actually changed
@@ -189,7 +189,7 @@ import {Catcher, Throw} from 'recondition';
     onCatch = { (e:Promise<any>) => doSomething(e)}
  >
    {({
-       caught, // number of Promised caught
+       caught, // number of Promises caught
        pending, // is anything pending
        rejected, // is anything rejected
        resolved, // is all resolved
